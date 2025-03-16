@@ -111,15 +111,22 @@ void copydiatas70(address L1, address *L2) {
 }
 
 void hapusDuplikasi(address *head) {
-    address temp = *head;
-    while (temp && temp->next) {
-        if (strcmp(temp->nama, temp->next->nama) == 0) {
-            address duplicate = temp->next;
-            temp->next = temp->next->next;
-            free(duplicate);
-        } else {
-            temp = temp->next;
+    if (*head == NULL) return;
+
+    address current = *head;
+
+    while (current != NULL && current->next != NULL) {
+        address temp = current;
+        while (temp->next != NULL) {
+            if (strcmp(current->nama, temp->next->nama) == 0) {
+                address duplicate = temp->next;
+                temp->next = temp->next->next;
+                free(duplicate);
+            } else {
+                temp = temp->next;
+            }
         }
+        current = current->next;
     }
 }
 
